@@ -1,11 +1,37 @@
-const categoryModel = require('../model/category')
+const productModel = require('../model/product')
+const subCategoryModel = require('../model/subCategory')
 
 
+class ProductController {
 
-class CategoryController {
+    static create(req, res, next) {
+        subCategoryModel.findOne({
+                _id: req.params.id
+            })
+            .then(data => {
+                return productModel.create({
+                    categoryId: data.categoryId,
+                    subCategoryId: data._id,
+                    name: req.body.name,
+                    description: req.body.description,
+                    price: req.body.price,
+                    quantity: req.body.quantity,
+                    imageUrl: req.body.imageUrl
+                })
+            })
+            .then(data1 => {
+                res.status(201).json({
+                    data1
+                })
+            })
+            .catch(err => {
+                console.log(`Errornya tuh disini ${err.message}`)
+            })
+    }
+
 
     static findAll(req, res, next) {
-        categoryModel.find()
+        productModel.find()
             .then(data => {
                 res.status(200).json({
                     data
@@ -17,7 +43,7 @@ class CategoryController {
     }
 
     static findOne(req, res, next) {
-        categoryModel.findOne({
+        productModel.findOne({
                 _id: req.params.id
             })
             .then(data => {
@@ -29,29 +55,17 @@ class CategoryController {
                 console.log(`Errornya tuh disini ${err.message}`)
             })
     }
-
-    static create(req, res, next) {
-
-        categoryModel.create({
-                name: req.body.name
-            })
-            .then(data => {
-                res.status(201).json({
-                    data
-                })
-            })
-            .catch(err => {
-                console.log(`Errornya tuh disini ${err.message}`)
-            })
-    }
-
 
     static update(req, res, next) {
 
-        categoryModel.updateOne({
+        productModel.updateOne({
                 _id: req.params.id
             }, {
-                name: req.body.name
+                name: req.body.name,
+                description: req.body.description,
+                price: req.body.price,
+                quantity: req.body.quantity,
+                imageUrl: req.body.imageUrl
             })
             .then(data => {
                 res.status(201).json({
@@ -61,15 +75,16 @@ class CategoryController {
             .catch(err => {
                 console.log(`Errornya tuh disini ${err.message}`)
             })
+
     }
 
     static delete(req, res, next) {
-
-        categoryModel.deleteOne({
+        console.log('masuk brooh')
+        productModel.deleteOne({
                 _id: req.params.id
             })
             .then(data => {
-                console.log('berhasil terdelete ' + data)
+
                 res.status(201).json({
                     data
                 })
@@ -79,6 +94,7 @@ class CategoryController {
             })
     }
 
+
 }
 
-module.exports = CategoryController
+module.exports = ProductController

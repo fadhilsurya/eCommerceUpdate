@@ -1,23 +1,22 @@
+const subCategoryModel = require('../model/subCategory')
 const categoryModel = require('../model/category')
 
-
-
-class CategoryController {
+class SubCategoryController {
 
     static findAll(req, res, next) {
-        categoryModel.find()
+        subCategoryModel.find()
             .then(data => {
                 res.status(200).json({
-                    data
+                    data    
                 })
             })
             .catch(err => {
-                console.log(`Errornya tuh disini ${err.message}`)
+                console.log(`errornya tuh disini ${err.message}`)
             })
     }
 
     static findOne(req, res, next) {
-        categoryModel.findOne({
+        subCategoryModel.findOne({
                 _id: req.params.id
             })
             .then(data => {
@@ -31,24 +30,31 @@ class CategoryController {
     }
 
     static create(req, res, next) {
-
-        categoryModel.create({
-                name: req.body.name
+        categoryModel.findOne({
+                name: req.body.categoryName
             })
             .then(data => {
-                res.status(201).json({
-                    data
+                return subCategoryModel.create({
+                    categoryId: data._id,
+                    name: req.body.name
                 })
             })
+
+            .then(data1 => {
+                res.status(201).json({
+                    data1
+                })
+            })
+
             .catch(err => {
-                console.log(`Errornya tuh disini ${err.message}`)
+                console.log(`errornya tuh disini loh ${err.message}`)
             })
     }
 
 
     static update(req, res, next) {
 
-        categoryModel.updateOne({
+        subCategoryModel.updateOne({
                 _id: req.params.id
             }, {
                 name: req.body.name
@@ -63,22 +69,24 @@ class CategoryController {
             })
     }
 
-    static delete(req, res, next) {
 
-        categoryModel.deleteOne({
+    static delete(req, res, next) {
+        // console.log('masuk ke bagian ini')
+        // console.log(req.params.id, '<< ini datanya koordinatenya')
+        subCategoryModel.deleteOne({
                 _id: req.params.id
             })
             .then(data => {
-                console.log('berhasil terdelete ' + data)
+
                 res.status(201).json({
                     data
                 })
             })
             .catch(err => {
-                console.log(`Errornya tuh disini ${err.message}`)
+                console.log(`errornya tuh disini broh ${err.message}`)
             })
     }
 
 }
 
-module.exports = CategoryController
+module.exports = SubCategoryController

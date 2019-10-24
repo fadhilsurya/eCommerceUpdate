@@ -1,7 +1,10 @@
 const router = require('express').Router()
 const categoryController = require('../controller/category')
 
+router.get('/', categoryController.findAll)
+router.get('/:id', categoryController.findOne)
 router.post('/', categoryController.create)
+router.patch('/:id', categoryController.update)
 router.delete('/:id', categoryController.delete)
 
 

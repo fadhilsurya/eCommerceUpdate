@@ -10,12 +10,15 @@ const port = 3000;
 // } = require('./middlewares/errorHandler')
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/mini-ecommerce', {
+mongoose.connect('mongodb://localhost:27017/mini-ecommerce', {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
     .then(_ => {
         console.log('masuk ke database')
+    })
+    .catch(err => {
+        console.log(`Errornya tuh disini ${err.message}`)
     })
 
 
@@ -29,11 +32,16 @@ app.use(express.urlencoded({
 }))
 
 const category = require('./routes/category')
-// const subCategory = require('./routes')
+const subCategory = require('./routes/subCategory')
+const product = require('./routes/product')
 
 app.use('/category', category)
+app.use('/subCategory', subCategory)
+app.use('/product', product)
 
 
 // app.use(errorHandler)
 
 app.listen(port, () => console.log(`Listening to Port ${ port } live and well`))
+
+module.exports = app

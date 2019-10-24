@@ -3,8 +3,14 @@ const schema = mongoose.Schema
 
 
 const productSchema = new schema({
+    categoryId: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Category',
+        required: true
+    },
     subCategoryId: {
         type: mongoose.Schema.ObjectId,
+        ref: 'subCategory',
         required: true
     },
     name: {
@@ -25,9 +31,8 @@ const productSchema = new schema({
         required: true,
         min: [0, 'quantity cannot be less than 0']
     },
-    featuredImage: {
-        type: String,
-        required: true
+    imageUrl: {
+        type: String
     }
 }, {
     timestamps: true
