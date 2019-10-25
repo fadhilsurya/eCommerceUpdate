@@ -4,7 +4,7 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV == 'development' || process.en
 
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 8080;
 const mongoose = require('mongoose');
 
 mongoose.connect(process.env.ATLAS, {
