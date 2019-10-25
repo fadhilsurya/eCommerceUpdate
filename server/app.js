@@ -1,4 +1,4 @@
-if (process.env.NODE_ENV == 'development') {
+if (!process.env.NODE_ENV || process.env.NODE_ENV == 'development' || process.env.NODE_ENV == 'test') {
     require('dotenv').config()
 }
 
@@ -7,7 +7,7 @@ const app = express();
 const port = 3000;
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/mini-ecommerce', {
+mongoose.connect(process.env.ATLAS, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
