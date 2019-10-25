@@ -4,19 +4,18 @@ const expect = chai.expect
 
 const app = require('../app.js')
 
-let dummyCategoryId = '5db1bb81d29f7d3e5ad62ede'
-let testingDummyCat = '5db206ce881f5b86f695b15e'
+
 chai.use(chaiHttp)
 
+let dummyProductId = '5db1d86497fb70625ec8a821'
 
-describe('category testing', function () {
+describe('product testing', function () {
 
-    // GET ALL
-    describe('GET/category', function () {
+    describe('GET/product', function () {
         it('should return array of object with status code 200', function (done) {
             chai
                 .request(app)
-                .get('/category')
+                .get('/product')
                 .end(function (err, res) {
                     expect(err).to.be.null
                     expect(res).to.have.status(200)
@@ -25,12 +24,12 @@ describe('category testing', function () {
                 })
         })
     })
-    // FINDONE
-    describe('GET/category/:id', function () {
+
+    describe('GET/product/:id', function () {
         it('Should return array of object with spesific one object and status code 200', function (done) {
             chai
                 .request(app)
-                .get(`/category/${dummyCategoryId}`)
+                .get(`/product/${dummyProductId}`)
                 .end(function (err, res) {
                     expect(err).to.be.null
                     expect(res).to.have.status(200)
@@ -40,18 +39,29 @@ describe('category testing', function () {
 
         })
     })
-    // CREATE
-    describe('POST/category', function () {
+
+    describe('POST/product', function () {
         it('Should return object', function (done) {
 
-            let categoryDummy = {
-                name: 'categoryDummy'
+            let dummySubCategoryId = '5db0b0bee321ed5b5ddd3d97'
+            let dummyCategoryId = '5db09bd6b08f4243bba910bd'
+
+            let productDummy = {
+                _id: 'Keyboard',
+                categoryId: dummyCategoryId,
+                subCategoryId: dummySubCategoryId,
+                name: 'testing1',
+                description: 'lorem ipsum testing',
+                price: 100,
+                quantity: 50,
+                imageUrl: 'this is picure'
+
             }
 
             chai
                 .request(app)
-                .post(`/category`)
-                .send(categoryDummy)
+                .post(`/product/${dummySubCategoryId}`)
+                .send(productDummy)
                 .end(function (err, res) {
                     expect(err).to.be.null
                     expect(res).to.have.status(201)
@@ -60,16 +70,21 @@ describe('category testing', function () {
                 })
         })
     })
-    // UPDATE
-    describe('PATCH/category', function () {
-        it('Should return array of object', function (done) {
 
+    describe('PATCH/product', function () {
+        it('Should return array of object', function (done) {
+            let dummyProductId = '5db26f1818021ea9c660d8d5'
             let updateDummy = {
-                name: 'testingCategoryDummy'
+                _id: dummyProductId,
+                name: 'testing2',
+                description: 'lorem ipsum testing2',
+                price: 250,
+                quantity: 100,
+                imageUrl: 'this is picture testing2'
             }
             chai
                 .request(app)
-                .patch(`/category/${dummyCategoryId}`)
+                .patch(`/product/${dummyProductId}`)
                 .send(updateDummy)
                 .end(function (err, res) {
                     expect(err).to.be.null
@@ -79,29 +94,24 @@ describe('category testing', function () {
                 })
         })
     })
-    // DELETE
-    describe('DELETE/category/:id', function () {
-        it('should return form object', function (done) {
 
-            let dummyId = '5db206ce881f5b86f695b15e'
+    describe('DELETE/product/:id', function () {
+        it('should return object', function (done) {
+
+            let dummyId = '5db0b584bf439962467c3330'
 
             chai
                 .request(app)
-                .delete(`/category/${dummyId}`)
+                .delete(`/product/${dummyId}`)
                 .end(function (err, res) {
                     expect(err).to.be.null
                     expect(res).to.be.an('object')
-                    expect(res).to.have.status(201)
+                    expect(res).to.have.status(200)
                     done()
                 })
 
         })
     })
-
-
-
-
-
 
 
 })

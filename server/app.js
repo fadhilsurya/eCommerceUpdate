@@ -5,9 +5,6 @@ if (process.env.NODE_ENV == 'development') {
 const express = require('express');
 const app = express();
 const port = 3000;
-// const {
-//     errorHandler
-// } = require('./middlewares/errorHandler')
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost:27017/mini-ecommerce', {
@@ -39,8 +36,6 @@ app.use('/category', category)
 app.use('/subCategory', subCategory)
 app.use('/product', product)
 
-
-// app.use(errorHandler)
 
 app.listen(port, () => console.log(`Listening to Port ${ port } live and well`))
 

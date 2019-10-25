@@ -25,7 +25,7 @@ class ProductController {
                 })
             })
             .catch(err => {
-                console.log(`Errornya tuh disini ${err.message}`)
+                console.log(err.message)
             })
     }
 
@@ -38,7 +38,7 @@ class ProductController {
                 })
             })
             .catch(err => {
-                console.log(`Errornya tuh disini ${err.message}`)
+                console.log(err.message)
             })
     }
 
@@ -47,12 +47,12 @@ class ProductController {
                 _id: req.params.id
             })
             .then(data => {
-                res.status(201).json({
+                res.status(200).json({
                     data
                 })
             })
             .catch(err => {
-                console.log(`Errornya tuh disini ${err.message}`)
+                console.log(err.message)
             })
     }
 
@@ -73,9 +73,8 @@ class ProductController {
                 })
             })
             .catch(err => {
-                console.log(`Errornya tuh disini ${err.message}`)
+                console.log(err.message)
             })
-
     }
 
     static delete(req, res, next) {
@@ -85,12 +84,12 @@ class ProductController {
             })
             .then(data => {
 
-                res.status(201).json({
+                res.status(200).json({
                     data
                 })
             })
             .catch(err => {
-                console.log(`Errornya tuh disini ${err.message}`)
+                console.log(err.message)
             })
     }
 

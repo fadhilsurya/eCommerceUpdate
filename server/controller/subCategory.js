@@ -7,11 +7,11 @@ class SubCategoryController {
         subCategoryModel.find()
             .then(data => {
                 res.status(200).json({
-                    data    
+                    data
                 })
             })
             .catch(err => {
-                console.log(`errornya tuh disini ${err.message}`)
+                console.log(err.message)
             })
     }
 
@@ -25,7 +25,7 @@ class SubCategoryController {
                 })
             })
             .catch(err => {
-                console.log(`Errornya tuh disini ${err.message}`)
+                console.log(err.message)
             })
     }
 
@@ -47,7 +47,7 @@ class SubCategoryController {
             })
 
             .catch(err => {
-                console.log(`errornya tuh disini loh ${err.message}`)
+                console.log(err.message)
             })
     }
 
@@ -65,7 +65,7 @@ class SubCategoryController {
                 })
             })
             .catch(err => {
-                console.log(`Errornya tuh disini ${err.message}`)
+                console.log(err.message)
             })
     }
 
@@ -78,12 +78,12 @@ class SubCategoryController {
             })
             .then(data => {
 
-                res.status(201).json({
+                res.status(200).json({
                     data
                 })
             })
             .catch(err => {
-                console.log(`errornya tuh disini broh ${err.message}`)
+                console.log(err.message)
             })
     }
 
