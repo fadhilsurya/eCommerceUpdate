@@ -7,7 +7,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/mini-ecommerce', {
+mongoose.connect(process.env.ATLAS, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
@@ -15,7 +15,7 @@ mongoose.connect('mongodb://localhost/mini-ecommerce', {
         console.log('masuk ke database')
     })
     .catch(err => {
-        console.log(`Errornya tuh disini ${err.message}`)
+        console.log(err)
     })
 
 
