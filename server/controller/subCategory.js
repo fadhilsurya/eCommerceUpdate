@@ -30,29 +30,46 @@ class SubCategoryController {
     }
 
     static create(req, res, next) {
-        categoryModel.findOne({
-                name: req.body.categoryName
-            })
-            .then(data => {
-                return subCategoryModel.create({
-                    categoryId: data._id,
-                    name: req.body.name
-                })
-            })
+        if ((req.body.categoryName == '') || (req.body.name == '')) {
+            throw new Error(res.status(400).json({
+                Code: 400,
+                message: 'Field Cannot be Empty'
 
-            .then(data1 => {
-                res.status(201).json({
-                    data1
+            }))
+        } else {
+            categoryModel.findOne({
+                    name: req.body.categoryName
                 })
-            })
+                .then(data => {
+                    return subCategoryModel.create({
+                        categoryId: data._id,
+                        name: req.body.name
+                    })
+                })
 
-            .catch(err => {
-                console.log(err.message)
-            })
+                .then(data1 => {
+                    res.status(201).json({
+                        data1
+                    })
+                })
+
+                .catch(err => {
+                    console.log(err.message)
+                })
+
+
+        }
     }
 
 
     static update(req, res, next) {
+        if (req.body.name == '') {
+            throw new Error(res.status(400).json({
+                Code: 400,
+                Message: 'Field cannot be empty'
+            }))
+
+        }
 
         subCategoryModel.updateOne({
                 _id: req.params.id

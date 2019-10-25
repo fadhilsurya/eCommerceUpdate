@@ -10,6 +10,7 @@ class ProductController {
             })
             .then(data => {
                 return productModel.create({
+
                     categoryId: data.categoryId,
                     subCategoryId: data._id,
                     name: req.body.name,
@@ -25,7 +26,7 @@ class ProductController {
                 })
             })
             .catch(err => {
-                console.log(err.message)
+                res.status(400).json(err)
             })
     }
 
@@ -57,24 +58,32 @@ class ProductController {
     }
 
     static update(req, res, next) {
-
-        productModel.updateOne({
-                _id: req.params.id
-            }, {
-                name: req.body.name,
-                description: req.body.description,
-                price: req.body.price,
-                quantity: req.body.quantity,
-                imageUrl: req.body.imageUrl
-            })
-            .then(data => {
-                res.status(201).json({
-                    data
+        if ((req.body.name == '') || (req.body.description == '') || (req.body.price == '') || (req.body.quantity == '') || (req.body.imageUrl == '')) {
+            throw new Error(res.status(400).json({
+                code: 400,
+                message: 'Fields Cannot be Empty'
+            }))
+        } else {
+            productModel.updateOne({
+                    _id: req.params.id
+                }, {
+                    name: req.body.name,
+                    description: req.body.description,
+                    price: req.body.price,
+                    quantity: req.body.quantity,
+                    imageUrl: req.body.imageUrl
                 })
-            })
-            .catch(err => {
-                console.log(err.message)
-            })
+                .then(data => {
+                    res.status(201).json({
+                        data
+                    })
+                })
+                .catch(err => {
+                    console.log(err.message)
+                })
+
+        }
+
     }
 
     static delete(req, res, next) {
