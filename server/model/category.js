@@ -10,6 +10,19 @@ const categorySchema = new schema({
 }, {
     timestamps: true
 })
+categorySchema.pre('save', function (next) {
+    return categoryModel.findOne({
+            name: this.name
+        })
+        .then(data => {
+            if (data) {
+                throw new Error({
+                    code: 400,
+                    message: 'Category already created'
+                })
+            }
+        })
+})
 
 const categoryModel = mongoose.model('Category', categorySchema)
 module.exports = categoryModel

@@ -4,10 +4,10 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV == 'development' || process.en
 
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.ATLAS, {
+mongoose.connect('mongodb://localhost/mini-ecommerce', {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })

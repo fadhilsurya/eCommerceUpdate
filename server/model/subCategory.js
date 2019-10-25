@@ -15,6 +15,20 @@ const subCategorySchema = new schema({
 }, {
     timestamps: true
 })
+subCategorySchema.pre('save', function (next) {
+    return subCategoryModel.findOne({
+            name: this.name
+        })
+        .then(data => {
+            if (data) {
+                throw new Error({
+                    code: 400,
+                    message: 'Sub-Category already created'
+                })
+            }
+        })
+})
+
 
 const subCategoryModel = mongoose.model('subCategory', subCategorySchema)
 module.exports = subCategoryModel

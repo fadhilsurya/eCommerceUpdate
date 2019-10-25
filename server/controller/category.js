@@ -12,7 +12,7 @@ class CategoryController {
                 })
             })
             .catch(err => {
-                console.log(err.message)
+                res.status(400).json(err)
             })
     }
 
@@ -21,12 +21,10 @@ class CategoryController {
                 _id: req.params.id
             })
             .then(data => {
-                res.status(200).json({
-                    data
-                })
+                res.status(200).json(err)
             })
             .catch(err => {
-                console.log(err.message)
+                res.status(400).json(err)
             })
     }
 
@@ -41,7 +39,7 @@ class CategoryController {
                 })
             })
             .catch(err => {
-                console.log(err.message)
+                res.status(401).json(err)
             })
     }
 
@@ -59,7 +57,7 @@ class CategoryController {
                 })
             })
             .catch(err => {
-                console.log(err.message)
+                res.status(400).json(err)
             })
     }
 
@@ -75,7 +73,7 @@ class CategoryController {
                 })
             })
             .catch(err => {
-                console.log(err.message)
+                res.status(400).json(err)
             })
     }
 
