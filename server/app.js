@@ -7,7 +7,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/mini-ecommerce', {
+mongoose.connect('mongodb+srv://fadhilsurya:admin@cluster0-lit1i.gcp.mongodb.net/mini-ecommerce?retryWrites=true&w=majority', {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
